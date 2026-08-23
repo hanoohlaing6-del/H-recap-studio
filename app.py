@@ -7,8 +7,8 @@ import yt_dlp
 from google import genai
 
 # Streamlit Page Setup
-st.set_page_config(page_title="Movie Recap Generator", page_icon="🎬", layout="wide")
-st.title("🎬 TikTok Movie Recap Generator")
+st.set_page_config(page_title="AI Movie Recap Generator", page_icon="🎬", layout="wide")
+st.title("🎬 AI Movie Recap Generator")
 
 # ----------------- ADMIN & VIP CONFIG -----------------
 ADMIN_KEYS = ["ADMIN123", "JEWAN_MASTER"]
@@ -104,13 +104,13 @@ if not is_vip:
 tab1, tab2, tab3 = st.tabs(["🎬 Movie Recap Tool", "💳 VIP Key ဝယ်ယူရန် (MM / TH)", "🔍 ဝယ်ယူမှုအခြေအနေ စစ်ရန်"])
 
 with tab1:
-    tiktok_url = st.text_input("TikTok Video Link ကို ထည့်ပါ:")
+    video_url = st.text_input("Video Link (TikTok / YouTube / Facebook / Rednote / Douyin) ထည့်ပါ:")
 
     if st.button("Generate Recap"):
         if not gemini_api_key:
             st.error("ကျေးဇူးပြု၍ ဘေးဘက် (Sidebar) တွင် Gemini API Key ထည့်ပါ။")
-        elif not tiktok_url:
-            st.error("TikTok Video Link ထည့်ပါ။")
+        elif not video_url:
+            st.error("Video Link ထည့်ပါ။")
         elif not is_vip and st.session_state.usage_count >= 2:
             st.error("❌ ဒီနေ့အတွက် အခမဲ့ ၂ ကြိမ် ပြည့်သွားပါပြီ။ ထပ်မံအသုံးပြုလိုပါက 'VIP Key ဝယ်ယူရန်' Tab တွင် ဝယ်ယူပါ။")
         else:
@@ -120,7 +120,7 @@ with tab1:
                 with st.spinner("⏳ Audio ဒေါင်းလုဒ်ဆွဲနေပါသည်..."):
                     ydl_opts = {'format': 'm4a/bestaudio/best', 'outtmpl': 'input_audio.m4a', 'quiet': True}
                     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                        ydl.download([tiktok_url])
+                        ydl.download([video_url])
                     audio_path = "input_audio.m4a"
                 
                 with st.spinner("⏳ AI ဖြင့် Script ရေးသားနေပါသည်..."):
