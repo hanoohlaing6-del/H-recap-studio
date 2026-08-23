@@ -11,7 +11,7 @@ st.set_page_config(
 
 st.title("🎬 AI Movie Recap Generator")
 
-# Sidebar - Payment & Contact Info
+# Sidebar - Payment & Contact Info (Telegram: @Han_Oo_Hlaing)
 st.sidebar.title("👑 VIP Key / ဆက်သွယ်ရန်")
 
 col1, col2 = st.sidebar.columns(2)
