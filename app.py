@@ -76,8 +76,16 @@ def generate_pretty_srt(script_text, output_srt="myanmar_sub.srt"):
 
 # ----------------- SIDEBAR UI -----------------
 st.sidebar.header("🔑 License & API Key")
+
+# Gemini API Key Input & Help Link
 gemini_api_key = st.sidebar.text_input("Gemini API Key (AIzaSy...)", type="password")
+st.sidebar.markdown("👉 [🔑 Gemini API Key အခမဲ့ယူရန် နှိပ်ပါ](https://aistudio.google.com/app/apikey)")
+
+st.sidebar.divider()
+
+# VIP License Key Input & Contact Link
 user_license_key = st.sidebar.text_input("VIP / Admin License Key", type="password").strip()
+st.sidebar.markdown("👉 [💬 VIP Key ဝယ်ယူရန် / ဆက်သွယ်ရန်](https://t.me/your_telegram_id)")
 
 is_admin = user_license_key in ADMIN_KEYS
 is_vip = False
@@ -126,7 +134,9 @@ with tab1:
                 with st.spinner("⏳ AI ဖြင့် Script ရေးသားနေပါသည်..."):
                     audio_file = client.files.upload(file=audio_path)
                     prompt = "ဒီ Audio ကို နားထောင်ပြီး ရုပ်ရှင်ဇာတ်လမ်းတို (Movie Recap) Voiceover Script မြန်မာလို ရေးပေးပါ။"
-                    response = client.models.generate_content(model='gemini-2.5-flash', contents=[audio_file, prompt])
+                    
+                    # Model နာမည်ကို သက်ဆိုင်ရာ gemini-1.5-flash သို့ ပြောင်းလဲထားပါသည်
+                    response = client.models.generate_content(model='gemini-1.5-flash', contents=[audio_file, prompt])
                     script = response.text
                     st.subheader("📝 ထွက်ရှိလာသော Script")
                     st.write(script)
@@ -159,6 +169,8 @@ with tab1:
 
 with tab2:
     st.header("💳 VIP Key ဝယ်ယူရန် (Myanmar & Thailand)")
+    st.markdown("💡 **VIP Key တိုက်ရိုက် ဝယ်ယူရန် သို့မဟုတ် မေးမြန်းရန်:** [Telegram ဖြင့် ဆက်သွယ်ရန် နှိပ်ပါ](https://t.me/your_telegram_id)")
+    
     currency = st.radio("ငွေပေးချေမည့် နိုင်ငံ / ငွေကြေး ရွေးပါ:", ["🇲🇲 မြန်မာကျပ်ငွေ (45,000 MMK)", "🇹🇭 ထိုင်းဘတ်ငွေ (350 THB)"], horizontal=True)
     st.divider()
     
